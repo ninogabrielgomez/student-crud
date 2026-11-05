@@ -1,4 +1,13 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/gomez/students';
+const RAW_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
+
+const getApiUrl = () => {
+  if (!RAW_BASE_URL) return '/gomez/students';
+  return RAW_BASE_URL.endsWith('/gomez/students')
+    ? RAW_BASE_URL
+    : `${RAW_BASE_URL.replace(/\/+$/, '')}/gomez/students`;
+};
+
+const API_BASE_URL = getApiUrl();
 
 /**
  * Fetch all students
